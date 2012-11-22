@@ -1,0 +1,43 @@
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function() {
+			$('#literatur').dataTable();
+		} );
+	</script>
+
+	<div id="header">
+          <h1>Literatur&uuml;bersicht</h1>
+	  <h2>[% literatur.size %] Eintr&auml;ge
+        </div>
+
+        <div id="literatur-liste">
+	  <table cellpadding="0" cellspacing="0" border="0" class="display" id="literatur">
+	  <thead>
+	  <tr>
+	   <th>Key</th>
+	   <th>Name</th>
+	   <th>Author</th>
+	  </tr>
+	</thead>
+<tbody>
+
+	  [% FOREACH entry IN literatur %]
+
+	  <tr class="gradeB">
+	   <td><a href="/lit/[% entry.path %].html">[% entry.key %]</a>
+	   <td> 
+		[% IF entry.pdf %]
+		<a href="/lit/[% entry.pdf %]">
+		[% ELSIF entry.txt %]
+		<a href="/lit/[% entry.txt %]">
+		[% END %]
+		[% entry.title %]</a>
+	   <td> [% entry.author %]
+	  </tr>
+
+	  [% END %]
+
+	  </tbody>
+	  </table>
+	  
+                    
+        </div>

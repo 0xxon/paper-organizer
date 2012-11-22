@@ -1,0 +1,10 @@
+	<div id="header">
+          <h1>Bibfile Display</h1>
+	  <h2>for <a href="/lit/[% path %]">[% path %]</a>
+        </div>
+
+        <div id="bib">
+<pre>
+[% INSERT $bibfile %]
+</pre>
+        </div>

@@ -1,0 +1,18 @@
+        <div id="header">
+          <h1>[% results.size %] Suchergebnisse</h1>
+	  <h2>f&uuml;r [% query %] </h2>
+        </div>
+
+        <div id="results">
+	  [% FOREACH entry IN results %]
+	 <div>
+	   <a href="/lit/lit/[% entry.path %]">[% entry.key %] - [% entry.score %]</a><br>
+	   <a href="/lit/lit/[% entry.file %]">[% entry.title %]</a><br>
+	   [% entry.excerpt %]<br>
+	  </div>
+	  <br><hl><br>
+
+	  [% END %]
+
+                    
+        </div>
