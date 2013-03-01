@@ -29,6 +29,7 @@ sub getBibliography {
 		$basename =~ s/\.bib$//;
 		my $pdffile = $basename.".pdf";
 		my $textfile = $basename.".txt";
+		$filename =~ s#^public/lit##;
 
 		my $hash = {
 			key => $entry->key(),

@@ -14,7 +14,7 @@ get '/' => sub {
 
 get qr{/lit/(.*\.bib)\.html} => sub {
 	my ($path) = splat;
-	my $abs_path = abs_path("../".$path);
+	my $abs_path = abs_path("./public/lit".$path);
 
 	template 'bibfile', { path => $path, bibfile => $abs_path };
 };
