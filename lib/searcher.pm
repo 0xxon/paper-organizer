@@ -5,10 +5,10 @@ use 5.12.2;
 use strict;
 use warnings;
 
-use KinoSearch::Search::IndexSearcher;
+use Lucy::Search::IndexSearcher;
 use Data::Dumper;
 
-my $searcher = KinoSearch::Search::IndexSearcher->new( 
+my $searcher = Lucy::Search::IndexSearcher->new( 
 	index => 'KinoIndex',
 );
 
@@ -21,7 +21,7 @@ sub query {
 		num_wanted => 1000,
 	);
 
-	my $highlighter = KinoSearch::Highlight::Highlighter->new(
+	my $highlighter = Lucy::Highlight::Highlighter->new(
 		searcher => $searcher,
 		query    => $query,
 		field    => 'content'

@@ -10,27 +10,27 @@ use CAM::PDF;
 require parseBib;
 use Data::Dumper;
 
-use KinoSearch::Plan::Schema;
-use KinoSearch::Plan::FullTextType;
-use KinoSearch::Plan::StringType;
-use KinoSearch::Analysis::PolyAnalyzer;
-use KinoSearch::Analysis::Tokenizer;
-use KinoSearch::Index::Indexer;
+use Lucy::Plan::Schema;
+use Lucy::Plan::FullTextType;
+use Lucy::Plan::StringType;
+use Lucy::Analysis::PolyAnalyzer;
+use Lucy::Analysis::RegexTokenizer;
+use Lucy::Index::Indexer;
 use Perl6::Slurp;
 
-my $schema = KinoSearch::Plan::Schema->new;
-my $polyanalyzer = KinoSearch::Analysis::PolyAnalyzer->new(
+my $schema = Lucy::Plan::Schema->new;
+my $polyanalyzer = Lucy::Analysis::PolyAnalyzer->new(
 	language => 'en',
 );
-my $tokenizer = KinoSearch::Analysis::Tokenizer->new;
-my $type = KinoSearch::Plan::FullTextType->new(
+my $tokenizer = Lucy::Analysis::RegexTokenizer->new;
+my $type = Lucy::Plan::FullTextType->new(
 	analyzer => $polyanalyzer,
 );
-my $tokentype = KinoSearch::Plan::FullTextType->new(
+my $tokentype = Lucy::Plan::FullTextType->new(
 	analyzer => $tokenizer,
 );
-my $path_type = KinoSearch::Plan::StringType->new( indexed => 0 );
-my $highlightable = KinoSearch::Plan::FullTextType->new(
+my $path_type = Lucy::Plan::StringType->new( indexed => 0 );
+my $highlightable = Lucy::Plan::FullTextType->new(
 	analyzer      => $polyanalyzer,
 	highlightable => 1,
 );
@@ -42,7 +42,7 @@ $schema->spec_field( name => 'path', type => $path_type );
 $schema->spec_field( name => 'pdf', type => $path_type );
 $schema->spec_field( name => 'txt', type => $path_type );
 $schema->spec_field( name => 'content', type => $highlightable );
-my $indexer = KinoSearch::Index::Indexer->new(
+my $indexer = Lucy::Index::Indexer->new(
 	index => 'KinoIndex',
 	schema => $schema,
 	create => 1,
@@ -52,7 +52,7 @@ my $indexer = KinoSearch::Index::Indexer->new(
 my $bibs = parseBib::getBibliography();
 
 sub readThePdf {
-	my $file = shift;
+	my $file = "public/lit".shift;
 	my $text;
 
 	say "Parsing $file";
