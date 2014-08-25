@@ -6,7 +6,7 @@ use warnings;
 
 push (@INC, "./lib");
 
-use CAM::PDF; 
+use CAM::PDF;
 require parseBib;
 use Data::Dumper;
 
@@ -103,7 +103,7 @@ for my $bib (@$bibs) {
 	if ( defined($bib->{'pdf'}) ) {
 		$$entry{'pdf'} = $bib->{'pdf'};
 	}
-	
+
 	die unless defined($entry);
 	$indexer->add_doc($entry);
 }
