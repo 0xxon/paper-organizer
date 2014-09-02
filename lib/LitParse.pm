@@ -1,6 +1,6 @@
-package literaturparser;
+package LitParse;
 
-use Dancer ':syntax';
+use Dancer2;
 use parseBib;
 use searcher;
 

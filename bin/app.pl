@@ -1,4 +1,7 @@
 #!/usr/bin/env perl
-use Dancer;
-use literaturparser;
-dance;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use LitParse;
+LitParse->dance;
