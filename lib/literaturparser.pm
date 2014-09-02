@@ -9,7 +9,7 @@ use Cwd qw/abs_path/;
 our $VERSION = '0.1';
 
 get '/' => sub {
-    template 'index', { literatur => parseBib::getBibliography() };
+	template 'index', { literatur => parseBib::getBibliography() };
 };
 
 get qr{/lit/(.*\.bib)\.html} => sub {
@@ -20,21 +20,21 @@ get qr{/lit/(.*\.bib)\.html} => sub {
 };
 
 post '/search' => sub {
-    my $query = params->{'query'};
-    my $history = session('searchHistory');
-    $history //= [];
+	my $query = params->{'query'};
+	my $history = session('searchHistory');
+	$history //= [];
 
-    push(@$history, $query);
-    while(scalar @$history > 10) {
-	    shift @$history;
-    }
-    session(searchHistory => $history);
+	push(@$history, $query);
+	while(scalar @$history > 10) {
+		shift @$history;
+	}
+	session(searchHistory => $history);
 
-    template 'search', { query => $query, results => searcher::query(params->{'query'}) };
+	template 'search', { query => $query, results => searcher::query(params->{'query'}) };
 };
 
 get '/search' => sub {
-    template 'search', { query => params->{'query'}, results => searcher::query(params->{'query'}) };
+	template 'search', { query => params->{'query'}, results => searcher::query(params->{'query'}) };
 };
 
 true;

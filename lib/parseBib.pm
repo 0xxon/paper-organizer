@@ -16,7 +16,7 @@ my $entry = Text::BibTeX::Entry->new();
 
 sub getBibliography {
 	@bibs = ();
-	
+
 	populateBibfiles();
 
 	for my $filename ( @bibfilenames ) {

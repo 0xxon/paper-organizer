@@ -8,7 +8,7 @@ use warnings;
 use Lucy::Search::IndexSearcher;
 use Data::Dumper;
 
-my $searcher = Lucy::Search::IndexSearcher->new( 
+my $searcher = Lucy::Search::IndexSearcher->new(
 	index => 'KinoIndex',
 );
 
