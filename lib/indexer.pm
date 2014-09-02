@@ -1,10 +1,11 @@
-#!/usr/bin/env perl
+package indexer;
 
 use 5.12.2;
 
 use warnings;
-
-push (@INC, "./lib");
+use strict;
+use autodie;
+use Carp;
 
 use CAM::PDF;
 require parseBib;

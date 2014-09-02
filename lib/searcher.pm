@@ -5,11 +5,21 @@ use 5.12.2;
 use strict;
 use warnings;
 
+use Carp;
 use Lucy::Search::IndexSearcher;
 use Data::Dumper;
 
+my $searchpath = 'KinoIndex';
+
+# First thing - look if the search path already exists. If not, this is probably
+# our first run and we have to create it first...
+
+unless (-d $searchpath) {
+	croak("Index does not exist yet");
+}
+
 my $searcher = Lucy::Search::IndexSearcher->new(
-	index => 'KinoIndex',
+	index => $searchpath,
 );
 
 sub query {
