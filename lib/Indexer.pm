@@ -1,4 +1,4 @@
-package indexer;
+package Indexer;
 
 use 5.12.2;
 

@@ -1,4 +1,4 @@
-package parseBib;
+package ParseBib;
 
 use 5.12.2;
 

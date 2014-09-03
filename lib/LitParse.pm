@@ -1,7 +1,7 @@
 package LitParse;
 
 use Dancer2;
-use parseBib;
+use ParseBib;
 use searcher;
 
 use Cwd qw/abs_path/;
