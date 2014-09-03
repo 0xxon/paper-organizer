@@ -1,15 +1,23 @@
 package LitParse;
 
+use 5.12.2;
+
+use strict;
+use warnings;
+
 use Dancer2;
-use ParseBib;
-use searcher;
+use Bibliography;
+use Searcher;
 
 use Cwd qw/abs_path/;
 
 our $VERSION = '0.1';
 
+my $bib = Bibliography->new();
+my $search = Searcher->new();
+
 get '/' => sub {
-	template 'index', { literatur => parseBib::getBibliography() };
+	template 'index', { literatur => $bib->getBibliography() };
 };
 
 get qr{/lit/(.*\.bib)\.html} => sub {
@@ -30,11 +38,11 @@ post '/search' => sub {
 	}
 	session(searchHistory => $history);
 
-	template 'search', { query => $query, results => searcher::query(params->{'query'}) };
+	template 'search', { query => $query, results => $search->query(params->{'query'}) };
 };
 
 get '/search' => sub {
-	template 'search', { query => params->{'query'}, results => searcher::query(params->{'query'}) };
+	template 'search', { query => params->{'query'}, results => $search->query(params->{'query'}) };
 };
 
 true;

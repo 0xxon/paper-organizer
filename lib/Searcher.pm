@@ -1,4 +1,4 @@
-package searcher;
+package Searcher;
 
 use 5.12.2;
 
@@ -7,23 +7,40 @@ use warnings;
 
 use Carp;
 use Lucy::Search::IndexSearcher;
-use Data::Dumper;
 
-my $searchpath = 'KinoIndex';
+use Moo;
+use namespace::clean;
 
-# First thing - look if the search path already exists. If not, this is probably
-# our first run and we have to create it first...
-
-unless (-d $searchpath) {
-	croak("Index does not exist yet");
-}
-
-my $searcher = Lucy::Search::IndexSearcher->new(
-	index => $searchpath,
+has searchpath => (
+ is => 'ro',
+ default => sub { 'KinoIndex' },
 );
 
+has searcher => (
+	is => 'rw',
+);
+
+sub BUILD {
+	my $self = shift;
+
+	# First thing - look if the search path already exists. If not, this is probably
+	# our first run and we have to create it first...
+
+	unless (-d $self->searchpath) {
+		croak("Index does not exist yet");
+	}
+
+	my $searcher = Lucy::Search::IndexSearcher->new(
+		index => $self->searchpath,
+	);
+	$self->searcher($searcher);
+}
+
+
 sub query {
+	my $self = shift;
 	my $query = shift;
+	my $searcher = $self->searcher;
 
 	my $hits = $searcher->hits(
 		query => $query,
