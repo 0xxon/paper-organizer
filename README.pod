@@ -1,6 +1,6 @@
 =head1 Paper Organizer
 
-This is a small paper organizer written in Perl Dancer using KinoSearch.
+This is a small paper organizer written in Perl Dancer using Lucy.
 Papers are added by providing their .bib and .pdf files. Both the pdf and the
 bib files are indexed and fill-text searches can be performed on them.
 

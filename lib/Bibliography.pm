@@ -20,7 +20,7 @@ has entry => (
 
 has searchpath => (
 	is => 'ro',
-	default => sub { "public/lit" },
+	required => 1,
 );
 
 has bibfilenames => (

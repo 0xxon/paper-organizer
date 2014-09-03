@@ -11,9 +11,9 @@ use Lucy::Search::IndexSearcher;
 use Moo;
 use namespace::clean;
 
-has searchpath => (
+has indexpath => (
  is => 'ro',
- default => sub { 'KinoIndex' },
+ required => 1,
 );
 
 has searcher => (
@@ -26,12 +26,12 @@ sub BUILD {
 	# First thing - look if the search path already exists. If not, this is probably
 	# our first run and we have to create it first...
 
-	unless (-d $self->searchpath) {
+	unless (-d $self->indexpath) {
 		croak("Index does not exist yet");
 	}
 
 	my $searcher = Lucy::Search::IndexSearcher->new(
-		index => $self->searchpath,
+		index => $self->indexpath,
 	);
 	$self->searcher($searcher);
 }

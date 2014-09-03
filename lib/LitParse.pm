@@ -8,13 +8,24 @@ use warnings;
 use Dancer2;
 use Bibliography;
 use Searcher;
+use Indexer;
 
 use Cwd qw/abs_path/;
 
 our $VERSION = '0.1';
 
-my $bib = Bibliography->new();
-my $search = Searcher->new();
+my $searchpath = "public/lit";
+my $indexpath = 'KinoIndex';
+
+my $bib = Bibliography->new(searchpath => $searchpath);
+my $indexer = Indexer->new(searchpath => $searchpath, indexpath => $indexpath, bib => $bib);
+
+unless ( -d $indexpath ) {
+	say "Running indexer for the first time...";
+	$indexer->index_bib();
+}
+
+my $search = Searcher->new(indexpath => $indexpath);
 
 get '/' => sub {
 	template 'index', { literatur => $bib->getBibliography() };
@@ -22,7 +33,7 @@ get '/' => sub {
 
 get qr{/lit/(.*\.bib)\.html} => sub {
 	my ($path) = splat;
-	my $abs_path = abs_path("./public/lit".$path);
+	my $abs_path = abs_path("./".$searchpath.$path);
 
 	template 'bibfile', { path => $path, bibfile => $abs_path };
 };
